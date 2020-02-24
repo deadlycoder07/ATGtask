@@ -25,7 +25,7 @@ class ATGController extends Controller
     public function store(){
         $data= request()->validate([
             'name' => ['required', 'string', 'max:255','unique:infos'],
-            'email' => ['required', 'string', 'email', 'max:255','regex:/(.*)@(.*)\.com/i','unique:infos'],
+            'email' => ['required', 'string', 'email', 'max:255','regex:/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/','unique:infos'],
             'pincode' => ['required', 'string', 'min:6', 'max:6', 'unique:infos'],
         ]);
         \App\info::create($data);

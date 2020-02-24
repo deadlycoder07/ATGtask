@@ -16,7 +16,7 @@ class ATGController extends Controller
     {
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255','unique:infos'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:infos'],
+            'email' => ['required', 'string', 'email', 'max:255', 'unique:infos','filter_var($email, FILTER_VALIDATE_EMAIL)'],
             'pincode' => ['required', 'string', 'min:6', 'unique:infos'],
         ]);
     }
@@ -25,7 +25,7 @@ class ATGController extends Controller
     public function store(){
         $data= request()->validate([
             'name' => ['required', 'string', 'max:255','unique:infos'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:infos'],
+            'email' => ['required', 'string', 'email', 'max:255','regex:/(.*)@(.*)\.com/i','unique:infos'],
             'pincode' => ['required', 'string', 'min:6', 'max:6', 'unique:infos'],
         ]);
         \App\info::create($data);
